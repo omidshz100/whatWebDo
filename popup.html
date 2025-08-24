@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <title>Site Explainer</title>
+  <style>
+    :root{
+      --bg:#0f172a; --card:#0b1220; --muted:#94a3b8; --text:#e2e8f0;
+      --accent:#6ee7b7; --accent2:#7c3aed; --border:#1f2937;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui; background:linear-gradient(135deg,#0b1220 0%,#0f172a 60%,#111827 100%); color:var(--text);}
+    .wrap{width:360px; min-height:420px; padding:14px;}
+    .card{background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .head{padding:14px 16px; background:linear-gradient(135deg, rgba(124,58,237,.35), rgba(110,231,183,.25)); border-bottom:1px solid var(--border);}
+    .title{margin:0;font-weight:800; letter-spacing:.2px;}
+    .sub{margin:4px 0 0; color:var(--muted); font-size:12px}
+    .body{padding:14px 16px}
+    label{display:block; font-size:12px; color:var(--muted); margin-top:10px; margin-bottom:6px}
+    input, select{width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:#0b1220; color:var(--text); outline:none}
+    input:focus, select:focus{border-color:#394150}
+    .row{display:flex; gap:8px; align-items:center}
+    .btn{width:100%; padding:11px 12px; border:0; border-radius:12px; cursor:pointer; color:#0b1220; font-weight:700;
+         background:linear-gradient(135deg, var(--accent), #34d399); transition:transform .06s ease}
+    .btn:active{transform:translateY(1px)}
+    .muted{color:var(--muted); font-size:11px}
+    .footer{display:flex; gap:8px; margin-top:10px}
+    .ghost{background:transparent; border:1px solid var(--border); color:var(--text)}
+    .area{margin-top:10px; background:#050a16; border:1px solid var(--border); border-radius:12px; padding:12px; min-height:140px; white-space:pre-wrap; line-height:1.6; font-size:13px}
+    .row-inline{display:flex; gap:8px}
+    .pill{padding:6px 8px; border-radius:999px; border:1px solid var(--border); color:var(--muted); font-size:11px}
+    .flex{display:flex; align-items:center; gap:6px}
+    .loader{display:none; align-items:center; gap:8px; color:var(--muted); font-size:12px}
+    .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1s infinite ease-in-out}
+    .dot:nth-child(2){animation-delay:.15s} .dot:nth-child(3){animation-delay:.3s}
+    @keyframes pulse{0%,80%,100%{opacity:.2} 40%{opacity:1}}
+    .keywrap{position:relative}
+    .eye{position:absolute; left:8px; top:50%; transform:translateY(-50%); cursor:pointer; color:var(--muted); font-size:12px}
+    .danger{color:#fca5a5}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="head">
+        <h3 class="title">Site Explainer</h3>
+        <p class="sub">«این سایت دقیقاً چه کاری انجام می‌دهد؟» — خلاصهٔ سریع با OpenRouter</p>
+      </div>
+      <div class="body">
+        <label>کلید OpenRouter</label>
+        <div class="keywrap">
+          <input id="key" type="password" placeholder="sk-or-v1-..." autocomplete="off"/>
+          <span id="toggle" class="eye">👁️</span>
+        </div>
+
+        <div class="row-inline" style="margin-top:8px">
+          <div style="flex:1">
+            <label>مدل</label>
+            <input id="model" value="openai/gpt-4o-mini" />
+          </div>
+          <div>
+            <label>حداکثر توکن</label>
+            <select id="maxtok">
+              <option>400</option><option selected>600</option><option>800</option><option>1000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex" style="margin:6px 0 10px">
+          <span class="pill">فارسی</span>
+          <span class="pill">حفظ حریم خصوصی: کلید در Storage افزونه</span>
+        </div>
+
+        <button id="go" class="btn">خلاصه کن</button>
+
+        <div id="loader" class="loader" style="margin-top:10px">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span>در حال خواندن صفحه و تماس با OpenRouter…</span>
+        </div>
+
+        <div id="out" class="area" aria-live="polite"></div>
+
+        <div class="footer">
+          <button id="copy" class="btn ghost">کپی نتیجه</button>
+          <button id="clear" class="btn ghost">پاک کردن</button>
+        </div>
+
+        <p id="err" class="muted danger" style="display:none;margin-top:8px"></p>
+        <p class="muted" style="margin-top:6px">نکته: اگر صفحه خیلی طولانی بود، افزونه متن را کوتاه می‌کند تا پاسخ سریع‌تر برگردد.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
